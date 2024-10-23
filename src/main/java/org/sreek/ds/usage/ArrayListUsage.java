@@ -7,7 +7,7 @@ public class ArrayListUsage {
 
     public static void main(String[] args) {
 
-
+        // Declaration of List; used polymorphism
         List<Integer> numbersList = new ArrayList<>();
 
         System.out.println("Printing number list without initialization:");
@@ -23,6 +23,7 @@ public class ArrayListUsage {
         numbersList.add(975);
 
         System.out.println("Printing numbers list post adding some elements");
+        System.out.println("Length of the arrayList is: " + numbersList.size());
         int count = 0;
         for (Integer num: numbersList) {
             System.out.println(count + ": " + num);
@@ -33,6 +34,7 @@ public class ArrayListUsage {
         // which makes the remove(int index) method being called instead of remove(Object o) method that removes the element with provided value.
         numbersList.remove(Integer.valueOf(13));
         System.out.println("Printing numbers list post removing by value - 12");
+        System.out.println("Length of the arrayList is: " + numbersList.size());
         for (int i = 0; i < numbersList.size(); i++) {
             System.out.println(i + ": " + numbersList.get(i));
         }
@@ -40,9 +42,12 @@ public class ArrayListUsage {
         numbersList.remove(0);
 
         System.out.println("Printing numbers list post removing by index - 0");
+        System.out.println("Length of the arrayList is: " + numbersList.size());
         for (int i = 0; i < numbersList.size(); i++) {
             System.out.println(i + ": " + numbersList.get(i));
         }
+
+        System.out.println("Length of the arrayList is: " + numbersList.size());
 
     }
 
