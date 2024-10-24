@@ -36,14 +36,41 @@ public class SinglyLinkedList<T> {
 
     // insert at head
     public void insertAtHead(T data) {
-        Node<T> n = new Node<>(data, null);
+        Node<T> newNode = new Node<>(data, null);
 
-        n.next = this.head;
-        this.head = n;
+        newNode.next = this.head;
+        this.head = newNode;
         this.size++;
     }
 
     // insert at index
+    public void insert(int index, T data) {
+        if(index < 0 || index > size)
+            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + this.size);
+
+        if (index == 0) {
+            insertAtHead(data);
+        } else if (index == size) {
+            insertAtEnd(data);
+        } else {
+            insertAtMiddle(index, data);
+        }
+    }
+
+    private void insertAtMiddle(int index, T data) {
+        Node<T> newNode = new Node<>(data, null);
+        Node<T> currNode = this.head;
+        Node<T> prevNode = null;
+        for (int i = 0; i <= index; i++) {
+            if(i == index)
+                prevNode = currNode;
+            currNode = currNode.next;
+        }
+        newNode.next = currNode;
+        prevNode.next = newNode;
+        this.size++;
+    }
+
     // insert at end
     public void insertAtEnd(T data){
 
@@ -52,21 +79,41 @@ public class SinglyLinkedList<T> {
             return;
         }
 
-        Node<T> n = new Node<>(data, null);
+        Node<T> newNode = new Node<>(data, null);
+        Node<T> currentNode = head;
 
-        Node<T> cn = head;
-
-        while(cn.next != null) {
-            cn = cn.next;
+        while(currentNode.next != null) {
+            currentNode = currentNode.next;
         }
 
-        cn.next = n;
+        currentNode.next = newNode;
+        this.size++;
     }
 
     // delete at head
     // delete at index
     // delete at end
 
+    public void printLinkedList() {
+        if(this.size == 0) {
+            System.out.println("Empty Linked List!!");
+            return;
+        }
+
+        System.out.println("Size of the Linked List: " + this.size);
+        System.out.println("Printing the Linked List: ");
+        Node<T> currNode = this.head;
+        int i = 0;
+        while (currNode != null) {
+            System.out.print(i++ + ": [" + currNode.data + "]");
+            currNode = currNode.next;
+            if (currNode!=null)
+                System.out.print(" -> ");
+            else
+                System.out.print(" -> NULL");
+        }
+        System.out.println();
+    }
 
     private static class Node<T> {
          T data;
