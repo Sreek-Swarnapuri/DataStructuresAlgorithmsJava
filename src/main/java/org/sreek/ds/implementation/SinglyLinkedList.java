@@ -60,14 +60,12 @@ public class SinglyLinkedList<T> {
     private void insertAtMiddle(int index, T data) {
         Node<T> newNode = new Node<>(data, null);
         Node<T> currNode = this.head;
-        Node<T> prevNode = null;
-        for (int i = 0; i <= index; i++) {
-            if(i == index)
-                prevNode = currNode;
+
+        for (int i = 0; i < index - 1; i++) {
             currNode = currNode.next;
         }
-        newNode.next = currNode;
-        prevNode.next = newNode;
+        newNode.next = currNode.next;
+        currNode.next = newNode;
         this.size++;
     }
 
@@ -91,8 +89,74 @@ public class SinglyLinkedList<T> {
     }
 
     // delete at head
-    // delete at index
+    public T deleteAtHead() {
+        if(isEmpty()){
+            System.out.println("Linked List is empty!");
+            return null;
+        }
+
+        Node<T> headNode = this.head;
+
+        this.head = this.head.next;
+        this.size--;
+
+        return headNode.data;
+    }
+
     // delete at end
+    public T deleteAtEnd() {
+        if(isEmpty()){
+            System.out.println("Linked List is empty!");
+            return null;
+        }
+
+        if(this.size == 1) {
+            return deleteAtHead();
+        }
+
+        Node<T> currentNode = this.head;
+
+        while(currentNode.next.next != null) {
+            currentNode = currentNode.next;
+        }
+
+        Node<T> deletedNode = currentNode.next;
+        currentNode.next = null;
+
+        this.size--;
+
+        return deletedNode.data;
+    }
+
+    // delete at index
+    public T delete(int index, T data) {
+        if(index < 0 || index > size)
+            throw new IndexOutOfBoundsException("Index given: " + index + " Size: " + this.size);
+
+        if(index == 0)
+            return deleteAtHead();
+        else if (index == this.size)
+            return deleteAtEnd();
+        else
+            return deleteAtMiddle(index, data);
+    }
+
+    private T deleteAtMiddle(int index, T data) {
+        Node<T> currNode = this.head;
+
+        for (int i = 0; i < index ; i++) {
+            currNode = currNode.next;
+        }
+        Node<T> deletedNode = currNode.next;
+        currNode.next = deletedNode.next;
+        this.size--;
+
+        deletedNode.next = null;
+
+        return deletedNode.data;
+    }
+
+
 
     public void printLinkedList() {
         if(this.size == 0) {
