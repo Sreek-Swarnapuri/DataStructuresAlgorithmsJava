@@ -29,20 +29,29 @@ public class SinglyLinkedList<T> {
 
      }
 
-    // getSize
+    /**
+     * retrieves size of the linked list
+     * Time Complexity: O(1)
+     * @return int
+     */
     public int getSize() {
         return size;
     }
 
     /**
      *  returns true if the SinglyLinkedList is empty
+     *  Time complexity: O(1)
      * @return boolean
      */
     public boolean isEmpty(){
         return  size == 0;
     }
 
-    // insert at head
+    /**
+     * Inserts at the start of the LinkedList
+     * Time complexity: O(1)
+     * @param data: data to be inserted
+     */
     public void insertAtHead(T data) {
         Node<T> newNode = new Node<>(data, null);
 
@@ -179,27 +188,6 @@ public class SinglyLinkedList<T> {
         return currNode.data;
     }
 
-    public void printLinkedList() {
-        if(this.size == 0) {
-            System.out.println("Empty Linked List!!");
-            return;
-        }
-
-        System.out.println("Size of the Linked List: " + this.size);
-        System.out.println("Printing the Linked List: ");
-        Node<T> currNode = this.head;
-        int i = 0;
-        while (currNode != null) {
-            System.out.print(i++ + ": [" + currNode.data + "]");
-            currNode = currNode.next;
-            if (currNode!=null)
-                System.out.print(" -> ");
-            else
-                System.out.print(" -> NULL");
-        }
-        System.out.println();
-    }
-
     // cleanup Linked list
     public void clear() {
         Node<T> currNode = this.head;
@@ -230,6 +218,27 @@ public class SinglyLinkedList<T> {
         }
 
         return false;
+    }
+
+    public void printLinkedList() {
+        if(this.size == 0) {
+            System.out.println("Empty Linked List!!");
+            return;
+        }
+
+        System.out.println("Size of the Linked List: " + this.size);
+        System.out.println("Printing the Linked List: ");
+        Node<T> currNode = this.head;
+        int i = 0;
+        while (currNode != null) {
+            System.out.print(i++ + ": [" + currNode.data + "]");
+            currNode = currNode.next;
+            if (currNode!=null)
+                System.out.print(" -> ");
+            else
+                System.out.print(" -> NULL");
+        }
+        System.out.println();
     }
 
     private static class Node<T> {
