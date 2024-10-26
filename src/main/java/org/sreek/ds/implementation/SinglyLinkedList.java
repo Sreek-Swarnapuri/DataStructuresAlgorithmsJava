@@ -17,9 +17,17 @@ public class SinglyLinkedList<T> {
     }
 
     public SinglyLinkedList(SinglyLinkedList<T> linkedList) {
-        this.head = linkedList.head;
-        this.size = linkedList.size;
-    }
+        if(linkedList == null || linkedList.isEmpty() )
+            throw new IllegalArgumentException("Input linked list should not be null or empty");
+
+        Node<T> currNode = linkedList.head;
+        this.size = 0;
+        while(currNode != null) {
+            this.insertAtEnd(currNode.data);
+            currNode = currNode.next;
+        }
+
+     }
 
     // getSize
     public int getSize() {
@@ -46,7 +54,7 @@ public class SinglyLinkedList<T> {
     // insert at index
     public void insert(int index, T data) {
         if(index < 0 || index > size)
-            throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + this.size);
+            throw new IndexOutOfBoundsException("Cannot insert element at Index: " + index + ", as the Size of Linked list is: " + this.size);
 
         if (index == 0) {
             insertAtHead(data);
@@ -129,22 +137,22 @@ public class SinglyLinkedList<T> {
     }
 
     // delete at index
-    public T delete(int index, T data) {
-        if(index < 0 || index > size)
-            throw new IndexOutOfBoundsException("Index given: " + index + " Size: " + this.size);
+    public T delete(int index) {
+        if(index < 0 || index >= size)
+            throw new IndexOutOfBoundsException("Cannot delete element at Index : " + index + ", as the Size of Linked list is: " + this.size);
 
         if(index == 0)
             return deleteAtHead();
-        else if (index == this.size)
+        else if (index == this.size - 1)
             return deleteAtEnd();
         else
-            return deleteAtMiddle(index, data);
+            return deleteAtMiddle(index);
     }
 
-    private T deleteAtMiddle(int index, T data) {
+    private T deleteAtMiddle(int index) {
         Node<T> currNode = this.head;
 
-        for (int i = 0; i < index ; i++) {
+        for (int i = 0; i < index - 1 ; i++) {
             currNode = currNode.next;
         }
         Node<T> deletedNode = currNode.next;
@@ -156,7 +164,20 @@ public class SinglyLinkedList<T> {
         return deletedNode.data;
     }
 
+    public T get(int index) {
+        if(index < 0 || index >= size)
+            throw new IndexOutOfBoundsException("Cannot retrieve element at Index: " + index + ", as the size of the Linked list is: " + this.size);
+        else if(index == 0)
+            return this.head.data;
 
+        Node<T> currNode = this.head;
+
+        for (int i = 0; i < index ; i++) {
+            currNode = currNode.next;
+        }
+
+        return currNode.data;
+    }
 
     public void printLinkedList() {
         if(this.size == 0) {
@@ -177,6 +198,38 @@ public class SinglyLinkedList<T> {
                 System.out.print(" -> NULL");
         }
         System.out.println();
+    }
+
+    // cleanup Linked list
+    public void clear() {
+        Node<T> currNode = this.head;
+
+        while (currNode!=null) {
+            Node<T> nextNode = currNode.next;
+            currNode.data = null;
+            currNode.next = null;
+            currNode = nextNode;
+        }
+
+        this.head = null;
+        this.size = 0;
+    }
+
+    // check if the linked list contains the given data
+    public boolean contains(T data) {
+        if(isEmpty()) {
+            System.out.println("Linked list is empty!");
+            return false;
+        }
+        Node<T> currNode = this.head;
+
+        while(currNode != null) {
+            if(currNode.data.equals(data))
+                return true;
+            currNode = currNode.next;
+        }
+
+        return false;
     }
 
     private static class Node<T> {
