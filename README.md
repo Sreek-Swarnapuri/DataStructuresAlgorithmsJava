@@ -12,6 +12,12 @@ How to use ArrayList in Java - [ArrayListUsage](https://github.com/Sreek-Swarnap
 
 ### Linked List
 
+#### Singly Linked List - Implementation
+
+#### Doubly Linked List - Implementation
+
+#### Inbuilt doubly Linked List in Java - LinkedList<T>
+
 ### Stack
 
 ### Queue

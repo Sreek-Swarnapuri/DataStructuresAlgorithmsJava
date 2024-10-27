@@ -26,12 +26,12 @@ public class SinglyLinkedList<T> {
             this.insertAtEnd(currNode.data);
             currNode = currNode.next;
         }
-
      }
 
     /**
      * retrieves size of the linked list
-     * Time Complexity: O(1)
+     * <br>
+     * Time complexity: O(1)
      * @return int
      */
     public int getSize() {
@@ -39,8 +39,9 @@ public class SinglyLinkedList<T> {
     }
 
     /**
-     *  returns true if the SinglyLinkedList is empty
-     *  Time complexity: O(1)
+     * returns true if the SinglyLinkedList is empty
+     * <br>
+     * Time complexity: O(1)
      * @return boolean
      */
     public boolean isEmpty(){
@@ -49,8 +50,9 @@ public class SinglyLinkedList<T> {
 
     /**
      * Inserts at the start of the LinkedList
+     * <br>
      * Time complexity: O(1)
-     * @param data: data to be inserted
+     * @param data data to be inserted
      */
     public void insertAtHead(T data) {
         Node<T> newNode = new Node<>(data, null);
@@ -60,7 +62,14 @@ public class SinglyLinkedList<T> {
         this.size++;
     }
 
-    // insert at index
+    /**
+     * Inserts data/element at the given index.
+     * Throws IndexOutOfBoundException if the index is out of 0 to size of LinkedList range.
+     * <br>
+     * Time complexity: O(n)
+     * @param index index at which the element should be inserted
+     * @param data value of the element to be inserted
+     */
     public void insert(int index, T data) {
         if(index < 0 || index > size)
             throw new IndexOutOfBoundsException("Cannot insert element at Index: " + index + ", as the Size of Linked list is: " + this.size);
@@ -74,6 +83,13 @@ public class SinglyLinkedList<T> {
         }
     }
 
+    /**
+     * Inserts data/element at the given index, internally used by the public facing insert() method.
+     * <br>
+     * Time complexity: O(n)
+     * @param index index at which the element should be inserted
+     * @param data value of the element to be inserted
+     */
     private void insertAtMiddle(int index, T data) {
         Node<T> newNode = new Node<>(data, null);
         Node<T> currNode = this.head;
@@ -86,7 +102,13 @@ public class SinglyLinkedList<T> {
         this.size++;
     }
 
-    // insert at end
+    /**
+     * Traverses through the linked list until the end and then inserts the provided
+     * data at the end of the LinkedList.
+     * <br>
+     * Time complexity: O(n)
+     * @param data: data to be inserted
+     */
     public void insertAtEnd(T data){
 
         if(isEmpty()) {
@@ -105,7 +127,12 @@ public class SinglyLinkedList<T> {
         this.size++;
     }
 
-    // delete at head
+    /**
+     * Deletes data at the head of the LinkedList. Returns null if the LinkedList is empty.
+     * <br>
+     * Time complexity: O(1)
+     * @return T
+     */
     public T deleteAtHead() {
         if(isEmpty()){
             System.out.println("Linked List is empty!");
@@ -120,7 +147,13 @@ public class SinglyLinkedList<T> {
         return headNode.data;
     }
 
-    // delete at end
+    /**
+     * Traverses to the end of the list and deletes the last element.
+     * Returns null if the Linkedlist is empty.
+     * <br>
+     * Time complexity: O(n)
+     * @return T
+     */
     public T deleteAtEnd() {
         if(isEmpty()){
             System.out.println("Linked List is empty!");
@@ -145,7 +178,14 @@ public class SinglyLinkedList<T> {
         return deletedNode.data;
     }
 
-    // delete at index
+    /**
+     * Traverses through the Linked list and deletes the element at the given index.
+     * Throws IndexOutOfBoundsException if the given index is out of range 0 to size of LinkedList.
+     * <br>
+     * Time complexity: O(n)
+     * @param index index of the element to be deleted.
+     * @return T
+     */
     public T delete(int index) {
         if(index < 0 || index >= size)
             throw new IndexOutOfBoundsException("Cannot delete element at Index : " + index + ", as the Size of Linked list is: " + this.size);
@@ -158,6 +198,14 @@ public class SinglyLinkedList<T> {
             return deleteAtMiddle(index);
     }
 
+    /**
+     * Traverses through the Linked list and deletes the element at the given index.
+     * Internally called by the public facing delete() method.
+     * <br>
+     * Time complexity: O(n)
+     * @param index index of the element to be deleted.
+     * @return T
+     */
     private T deleteAtMiddle(int index) {
         Node<T> currNode = this.head;
 
@@ -173,6 +221,13 @@ public class SinglyLinkedList<T> {
         return deletedNode.data;
     }
 
+    /**
+     * Traverses through the linked list and returns the data of the element at the provided index.
+     * <br>
+     * Time complexity: O(n)
+     * @param index index of the element whose data is needed.
+     * @return T
+     */
     public T get(int index) {
         if(index < 0 || index >= size)
             throw new IndexOutOfBoundsException("Cannot retrieve element at Index: " + index + ", as the size of the Linked list is: " + this.size);
@@ -188,7 +243,11 @@ public class SinglyLinkedList<T> {
         return currNode.data;
     }
 
-    // cleanup Linked list
+    /**
+     * Cleans the LinkedList by assigning null to all elements and resets the LinkedList to 0.
+     * <br>
+     * Time complexity: O(n)
+     */
     public void clear() {
         Node<T> currNode = this.head;
 
@@ -203,7 +262,13 @@ public class SinglyLinkedList<T> {
         this.size = 0;
     }
 
-    // check if the linked list contains the given data
+    /**
+     * Checks if the Linked list contains the given data.
+     * <br>
+     * Time complexity: O(n)
+     * @param data data to check if it is present in the linked list.
+     * @return boolean
+     */
     public boolean contains(T data) {
         if(isEmpty()) {
             System.out.println("Linked list is empty!");
@@ -220,6 +285,11 @@ public class SinglyLinkedList<T> {
         return false;
     }
 
+    /**
+     * Prints the linked list in format `index: [data] -> index [data] -> null`
+     * <br>
+     * Time complexity: O(n)
+     */
     public void printLinkedList() {
         if(this.size == 0) {
             System.out.println("Empty Linked List!!");
