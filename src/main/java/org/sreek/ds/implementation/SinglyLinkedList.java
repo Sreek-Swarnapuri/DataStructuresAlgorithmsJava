@@ -32,9 +32,9 @@ public class SinglyLinkedList<T> {
      * retrieves size of the linked list
      * <br>
      * Time complexity: O(1)
-     * @return int
+     * @return size of the linked list
      */
-    public int getSize() {
+    public int size() {
         return size;
     }
 
@@ -42,7 +42,7 @@ public class SinglyLinkedList<T> {
      * returns true if the SinglyLinkedList is empty
      * <br>
      * Time complexity: O(1)
-     * @return boolean
+     * @return {@code true} if the Linked list is empty
      */
     public boolean isEmpty(){
         return  size == 0;
@@ -107,7 +107,7 @@ public class SinglyLinkedList<T> {
      * data at the end of the LinkedList.
      * <br>
      * Time complexity: O(n)
-     * @param data: data to be inserted
+     * @param data data to be inserted
      */
     public void insertAtEnd(T data){
 
@@ -131,7 +131,7 @@ public class SinglyLinkedList<T> {
      * Deletes data at the head of the LinkedList. Returns null if the LinkedList is empty.
      * <br>
      * Time complexity: O(1)
-     * @return T
+     * @return data that is deleted
      */
     public T deleteAtHead() {
         if(isEmpty()){
@@ -152,7 +152,7 @@ public class SinglyLinkedList<T> {
      * Returns null if the Linkedlist is empty.
      * <br>
      * Time complexity: O(n)
-     * @return T
+     * @return data that is deleted
      */
     public T deleteAtEnd() {
         if(isEmpty()){
@@ -184,7 +184,7 @@ public class SinglyLinkedList<T> {
      * <br>
      * Time complexity: O(n)
      * @param index index of the element to be deleted.
-     * @return T
+     * @return data that is deleted
      */
     public T delete(int index) {
         if(index < 0 || index >= size)
@@ -204,7 +204,7 @@ public class SinglyLinkedList<T> {
      * <br>
      * Time complexity: O(n)
      * @param index index of the element to be deleted.
-     * @return T
+     * @return data that is deleted
      */
     private T deleteAtMiddle(int index) {
         Node<T> currNode = this.head;
@@ -226,7 +226,7 @@ public class SinglyLinkedList<T> {
      * <br>
      * Time complexity: O(n)
      * @param index index of the element whose data is needed.
-     * @return T
+     * @return data at the given index
      */
     public T get(int index) {
         if(index < 0 || index >= size)
@@ -267,7 +267,7 @@ public class SinglyLinkedList<T> {
      * <br>
      * Time complexity: O(n)
      * @param data data to check if it is present in the linked list.
-     * @return boolean
+     * @return {@code true} if linked list contains given data
      */
     public boolean contains(T data) {
         if(isEmpty()) {

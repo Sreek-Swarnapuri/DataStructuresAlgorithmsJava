@@ -22,7 +22,7 @@ public class DoublyLinkedList<T> {
     }
 
     public DoublyLinkedList(DoublyLinkedList<T> linkedList) {
-        if(linkedList == null || linkedList.isEmtpy())
+        if(linkedList == null || linkedList.isEmpty())
             throw new IllegalArgumentException("Provided linked list should not be null or empty");
 
         Node<T> currNode = linkedList.head;
@@ -45,7 +45,7 @@ public class DoublyLinkedList<T> {
     public void insertAtHead(T data){
         Node<T> newNode = new Node<>(null, data, this.head);
 
-        if(isEmtpy()) {
+        if(isEmpty()) {
             this.head = newNode;
             this.tail = newNode;
         } else {
@@ -66,7 +66,7 @@ public class DoublyLinkedList<T> {
     // case 2 -> 1 element : create new node, set tail to newNode's prev, set newNode to tail.next, set newNode to tail
     // case 3 -> >1 element : create new node, set tail to newNode's prev, set newNode to tail.next, set newNode to tail
     public void insertAtEnd(T data) {
-        if(isEmtpy()) {
+        if(isEmpty()) {
             insertAtHead(data);
             return;
         }
@@ -77,6 +77,16 @@ public class DoublyLinkedList<T> {
         this.tail = newNode;
     }
 
+    /**
+     * Inserts a new element with the data provided at the given index.
+     *      index:0 -> inserts at head,
+     *      index: size > inserts at end,
+     *      otherwise inserts at middle
+     * <br>
+     * Time complexity: O(n)
+     * @param index - index at which data should be inserted
+     * @param data = data to be inserted
+     */
     public void insert(int index, T data) {
         if(index < 0 || index > this.size)
             throw new IndexOutOfBoundsException("Cannot insert element at Index: " + index + ", as the Size of Linked list is: " + this.size);
@@ -86,37 +96,155 @@ public class DoublyLinkedList<T> {
         } else if (index == this.size()) {
             insertAtEnd(data);
         } else {
-            //insertAtMiddle(index, data);
+            insertAtMiddle(index, data);
         }
     }
 
-//    private void insertAtMiddle(int index, T data) {
-//        Node<T> newNode = new Node<>(null, data, null);
-//
-//        if(index < (this.size >> 1 )){
-//
-//        }
-//    }
+    /**
+     * Internal method to insert at middle. Traverses from head or tail based on the index position from middle.
+     * <br>
+     * Time complexity: O(n)
+     * @param index - index at which data should be inserted
+     * @param data = data to be inserted
+     */
+    private void insertAtMiddle(int index, T data) {
+
+        Node<T> currNode = getNode(index);
+
+        Node<T> newNode = new Node<>(currNode.prev, data, currNode);
+        currNode.prev.next = newNode;
+        currNode.prev = newNode;
+    }
+
+    /**
+     * Retrieve the element/Node at the given index
+     * <br>
+     * Time complexity: O(n/2) -> O(n)
+     * @param index index at which node is to be retrieved
+     * @return Node<T>
+     */
+    private Node<T> getNode(int index) {
+        Node<T> currNode;
+        if(index < (this.size >> 1)){
+            currNode = this.head;
+            for(int i = 0; i < index; i++) {
+                currNode = currNode.next;
+            }
+        } else {
+            currNode = this.tail;
+            for(int i = this.size - 1; i > index; i--) {
+                currNode = currNode.prev;
+            }
+        }
+        return currNode;
+    }
 
     //delete methods
 
-    //get
+    /**
+     * Retrieves the data present at the given index of the Linked List.
+     * <br>
+     * Time Complexity: O(n)
+     * @param index index of the element needed.
+     * @return T
+     */
+    public T get(int index) {
+        if(isEmpty()) {
+            System.out.println("Linked List is empty");
+            return null;
+        }
 
-    //contains
+        if(index < 0 || index >= this.size)
+            throw new IndexOutOfBoundsException("Cannot retrieve value of element at Index: " + index + ", as the Size of Linked list is: " + this.size);
 
-    //clear
+        Node<T> node = getNode(index);
 
-    // Empty
-    public boolean isEmtpy() {
+        return node.data;
+    }
+
+    /**
+     * Checks if the provided data is present in the Linked List.
+     * <br>
+     * Time complexity: O(n)
+     * @param data data which is to be checked
+     * @return boolean
+     */
+    public boolean contains(T data){
+        if(isEmpty()) {
+            System.out.println("Linked List is empty");
+            return false;
+        }
+        Node<T> currNode = this.head;
+        while(currNode != null) {
+            if(currNode.data.equals(data))
+                return true;
+            currNode = currNode.next;
+        }
+
+        return false;
+    }
+
+    /**
+     * Clears the linked list and resets it as a new LinkedList
+     * <br>
+     * Time Complexity: O(n)
+     */
+    public void clear() {
+        if(isEmpty()) {
+            System.out.println("Linked list is empty");
+            return;
+        }
+        Node<T> currNode = this.head;
+        while(currNode!= null) {
+            Node<T> nextNode = currNode.next;
+            currNode.prev = null;
+            currNode.data = null;
+            currNode.next = null;
+            currNode = nextNode;
+        }
+
+        this.head = this.tail = null;
+        this.size = 0;
+    }
+
+    /**
+     * Checks if the Linked list is empty
+     * @return boolean
+     */
+    public boolean isEmpty() {
         return this.size == 0;
     }
 
-    // size
+    /**
+     * Returns the size of the Linked List
+     * @return int
+     */
     public int size(){
         return this.size;
     }
 
     // printLinkedList
+    public void printLinkedList() {
+        Node<T> currNode = this.head;
+        int i = 0;
+        System.out.println("-----------Printing Linked List-----------");
+        System.out.println("Size of the linked list is " + this.size);
+        while (currNode != null) {
+            if(currNode.prev == null) {
+                System.out.print("NULL <- ");
+            }
+            System.out.print(i + ": [" + currNode.data + "]");
+
+            if(currNode.next == null)
+                System.out.print(" -> NULL");
+            else
+                System.out.print(" <-> ");
+
+            currNode = currNode.next;
+            i++;
+        }
+        System.out.println();
+    }
 
     private static class Node<T> {
         T data;

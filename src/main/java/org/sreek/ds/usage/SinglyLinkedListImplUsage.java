@@ -47,7 +47,7 @@ public class SinglyLinkedListImplUsage {
         System.out.println("deleting value: " + numericalLinkedList.delete(0));
         numericalLinkedList.printLinkedList();
 
-        System.out.println("deleting value: " + numericalLinkedList.delete(numericalLinkedList.getSize()-1));
+        System.out.println("deleting value: " + numericalLinkedList.delete(numericalLinkedList.size()-1));
         numericalLinkedList.printLinkedList();
 
         numericalLinkedList.insertAtHead(3);
@@ -58,7 +58,7 @@ public class SinglyLinkedListImplUsage {
         numericalLinkedList.printLinkedList();
 
         try {
-            System.out.println("deleting value: " + numericalLinkedList.delete(numericalLinkedList.getSize()));
+            System.out.println("deleting value: " + numericalLinkedList.delete(numericalLinkedList.size()));
             numericalLinkedList.printLinkedList();
         } catch (IndexOutOfBoundsException e) {
             System.out.println("exception thrown");
