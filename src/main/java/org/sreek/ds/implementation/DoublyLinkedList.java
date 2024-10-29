@@ -139,7 +139,88 @@ public class DoublyLinkedList<T> {
         return currNode;
     }
 
-    //delete methods
+    /**
+     * Deletes the element at head
+     * <br>
+     * Time complexity: O(1)
+     * @return deleted element's data
+     */
+    public T deleteAtHead() {
+        if(isEmpty()) {
+            System.out.println("Linked List is empty");
+            return null;
+        }
+        Node<T> deleteNode = this.head;
+
+        if(this.size == 1) {
+            this.head = null;
+            this.tail = null;
+        } else {
+            this.head.next.prev = null;
+            this.head = this.head.next;
+        }
+
+        deleteNode.next = null;
+        this.size--;
+        return deleteNode.data;
+    }
+
+    /**
+     * Deletes the element/node at the end
+     * <br>
+     * Time complexity: O(1)
+     * @return deleted element/node's data
+     */
+    public T deleteAtEnd() {
+        if(this.size <= 1)
+            return deleteAtHead();
+
+        Node<T> deleteNode = this.tail;
+
+        this.tail.prev.next = null;
+        this.tail = this.tail.prev;
+        deleteNode.prev = null;
+        this.size--;
+
+        return deleteNode.data;
+    }
+
+    /**
+     * Deletes the element/node at the given index.
+     *      delete:0 -> deletes at head,
+     *      delete: size > deletes at end,
+     *      otherwise delete at middle
+     * Throws IndexOutOfBoundsException if the given index is out of range 0 to size of LinkedList.
+     * <br>
+     * Time complexity: O(n)
+     * @param index index of the element to be deleted.
+     * @return data that is deleted
+     */
+    public T delete(int index) {
+        if(index < 0 || index >= size)
+            throw new IndexOutOfBoundsException("Cannot delete element at Index : " + index + ", as the Size of Linked list is: " + this.size);
+
+        if(index == 0) {
+            return deleteAtHead();
+        } else if (index == this.size - 1) {
+            return deleteAtEnd();
+        } else {
+            return deleteFromMiddle(index);
+        }
+
+    }
+
+    public T deleteFromMiddle(int index) {
+        Node<T> deleteNode = getNode(index);
+
+        deleteNode.prev.next = deleteNode.next;
+        deleteNode.next.prev = deleteNode.prev;
+
+        deleteNode.prev = null;
+        deleteNode.next = null;
+
+        return deleteNode.data;
+    }
 
     /**
      * Retrieves the data present at the given index of the Linked List.

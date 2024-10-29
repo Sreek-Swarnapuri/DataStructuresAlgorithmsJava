@@ -195,7 +195,7 @@ public class SinglyLinkedList<T> {
         else if (index == this.size - 1)
             return deleteAtEnd();
         else
-            return deleteAtMiddle(index);
+            return deleteFromMiddle(index);
     }
 
     /**
@@ -206,7 +206,7 @@ public class SinglyLinkedList<T> {
      * @param index index of the element to be deleted.
      * @return data that is deleted
      */
-    private T deleteAtMiddle(int index) {
+    private T deleteFromMiddle(int index) {
         Node<T> currNode = this.head;
 
         for (int i = 0; i < index - 1 ; i++) {
