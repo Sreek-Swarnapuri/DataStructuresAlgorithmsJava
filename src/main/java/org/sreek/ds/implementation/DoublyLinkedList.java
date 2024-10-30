@@ -75,6 +75,7 @@ public class DoublyLinkedList<T> {
 
         this.tail.next = newNode;
         this.tail = newNode;
+        this.size++;
     }
 
     /**
@@ -114,6 +115,7 @@ public class DoublyLinkedList<T> {
         Node<T> newNode = new Node<>(currNode.prev, data, currNode);
         currNode.prev.next = newNode;
         currNode.prev = newNode;
+        this.size++;
     }
 
     /**
@@ -210,7 +212,7 @@ public class DoublyLinkedList<T> {
 
     }
 
-    public T deleteFromMiddle(int index) {
+    private T deleteFromMiddle(int index) {
         Node<T> deleteNode = getNode(index);
 
         deleteNode.prev.next = deleteNode.next;
@@ -219,6 +221,7 @@ public class DoublyLinkedList<T> {
         deleteNode.prev = null;
         deleteNode.next = null;
 
+        this.size--;
         return deleteNode.data;
     }
 
@@ -305,7 +308,7 @@ public class DoublyLinkedList<T> {
     }
 
     // printLinkedList
-    public void printLinkedList() {
+    public void print() {
         Node<T> currNode = this.head;
         int i = 0;
         System.out.println("-----------Printing Linked List-----------");
@@ -314,7 +317,7 @@ public class DoublyLinkedList<T> {
             if(currNode.prev == null) {
                 System.out.print("NULL <- ");
             }
-            System.out.print(i + ": [" + currNode.data + "]");
+            System.out.print( "{ " + i + ": [" + currNode.data + "] }");
 
             if(currNode.next == null)
                 System.out.print(" -> NULL");
@@ -324,7 +327,7 @@ public class DoublyLinkedList<T> {
             currNode = currNode.next;
             i++;
         }
-        System.out.println();
+        System.out.println("\n");
     }
 
     private static class Node<T> {
