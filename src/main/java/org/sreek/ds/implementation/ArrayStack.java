@@ -2,14 +2,14 @@ package org.sreek.ds.implementation;
 
 import java.util.EmptyStackException;
 
-public class StackUsingArray<T> {
+public class ArrayStack<T> {
 
     private final int capacity;
     private int top;
     private final T[] elements;
 
     @SuppressWarnings("unchecked") // as we are maintaining a strict type and control the creation of the array only in this class
-    public StackUsingArray(int size){
+    public ArrayStack(int size){
         this.capacity = size;
         this.top = -1;
         elements = (T[]) new Object[size];
