@@ -2,7 +2,7 @@ package org.sreek.ds.usage;
 
 import org.sreek.ds.implementation.ArrayStack;
 
-public class StackUsingArraysImplUsage {
+public class ArrayStackImplUsage {
 
     public static void main(String[] args) {
         ArrayStack<Integer> stack = new ArrayStack<>(4);
