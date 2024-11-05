@@ -1,6 +1,6 @@
 package org.sreek.ds.usage.builtin;
 
-public class ArrayUsage {
+public class Arrays {
 
     public static void main(String[] args) {
         int[] numbers = new int[5];

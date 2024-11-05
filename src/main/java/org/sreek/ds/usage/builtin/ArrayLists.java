@@ -3,7 +3,7 @@ package org.sreek.ds.usage.builtin;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArrayListUsage {
+public class ArrayLists {
 
     public static void main(String[] args) {
 

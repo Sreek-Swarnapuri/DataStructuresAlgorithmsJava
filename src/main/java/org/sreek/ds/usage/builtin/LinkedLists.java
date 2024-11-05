@@ -2,7 +2,7 @@ package org.sreek.ds.usage.builtin;
 
 import java.util.LinkedList;
 
-public class InbuiltLinkedListUsage {
+public class LinkedLists {
 
     public static void main(String[] args) {
 
