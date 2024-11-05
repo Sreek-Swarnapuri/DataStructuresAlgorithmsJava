@@ -1,6 +1,6 @@
-package org.sreek.ds.usage;
+package org.sreek.ds.usage.impl.stack;
 
-import org.sreek.ds.implementation.LinkedListStack;
+import org.sreek.ds.implementation.stack.LinkedListStack;
 
 import java.util.EmptyStackException;
 
@@ -36,7 +36,7 @@ public class LinkedListStackImplUsage {
             e.printStackTrace();
         }
 
-        try{
+        try {
             intStack.pop();
             intStack.pop();
             intStack.pop();

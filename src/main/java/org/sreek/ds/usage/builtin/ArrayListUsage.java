@@ -1,4 +1,4 @@
-package org.sreek.ds.usage;
+package org.sreek.ds.usage.builtin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ public class ArrayListUsage {
         List<Integer> numbersList = new ArrayList<>();
 
         System.out.println("Printing number list without initialization:");
-        for (Integer num: numbersList) {
+        for (Integer num : numbersList) {
             System.out.println(num);
         }
         System.out.println("Nothing will be printed as there are no elements added to the ArrayList");
@@ -25,7 +25,7 @@ public class ArrayListUsage {
         System.out.println("Printing numbers list post adding some elements");
         System.out.println("Length of the arrayList is: " + numbersList.size());
         int count = 0;
-        for (Integer num: numbersList) {
+        for (Integer num : numbersList) {
             System.out.println(count + ": " + num);
             count++;
         }

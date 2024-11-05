@@ -1,15 +1,16 @@
-package org.sreek.ds.implementation;
+package org.sreek.ds.implementation.stack;
 
 import java.util.EmptyStackException;
 
 public class ArrayStack<T> {
 
     private final int capacity;
-    private int top;
     private final T[] elements;
+    private int top;
 
-    @SuppressWarnings("unchecked") // as we are maintaining a strict type and control the creation of the array only in this class
-    public ArrayStack(int size){
+    @SuppressWarnings("unchecked")
+    // as we are maintaining a strict type and control the creation of the array only in this class
+    public ArrayStack(int size) {
         this.capacity = size;
         this.top = -1;
         elements = (T[]) new Object[size];
@@ -17,6 +18,7 @@ public class ArrayStack<T> {
 
     /**
      * Checks if the stack is empty
+     *
      * @return {@code true} if there are no elements in Stack
      */
     public boolean isEmpty() {
@@ -25,18 +27,20 @@ public class ArrayStack<T> {
 
     /**
      * Checks if the stack is full
+     *
      * @return {@code true} if the stack has elements up to provided capacity
      */
     public boolean isFull() {
-        return ( this.capacity - 1 ) == this.top;
+        return (this.capacity - 1) == this.top;
     }
 
     /**
      * Adds provided data on top of the stack.
+     *
      * @param data data to be pushed onto the stack
      */
     public void push(T data) {
-        if( isFull() ) {
+        if (isFull()) {
             throw new StackOverflowError("Stack is full");
         }
         this.elements[++top] = data;
@@ -45,23 +49,25 @@ public class ArrayStack<T> {
 
     /**
      * Removes the top element of the stack
+     *
      * @return top element of the stack
      */
     public T pop() {
-        if( isEmpty() )
+        if (isEmpty())
             throw new EmptyStackException();
         T popElement = this.elements[top--];
-        this.elements[top+1] = null; // Avoid memory leak
+        this.elements[top + 1] = null; // Avoid memory leak
 
         return popElement;
     }
 
     /**
      * Shows the top element of the stack
+     *
      * @return the data on top of the stack
      */
     public T peek() {
-        if( isEmpty() )
+        if (isEmpty())
             throw new EmptyStackException();
 
         return this.elements[top];
@@ -69,7 +75,7 @@ public class ArrayStack<T> {
 
     @Override
     public String toString() {
-        if(isEmpty()) return "Stack is empty!";
+        if (isEmpty()) return "Stack is empty!";
 
         StringBuilder sb = new StringBuilder();
 
@@ -78,7 +84,7 @@ public class ArrayStack<T> {
 
         for (int i = top; i > -1; i--) {
             sb.append(i).append(" : ").append(this.elements[i]);
-            if(i == this.top)
+            if (i == this.top)
                 sb.append("  <--  top");
             sb.append("\n");
         }

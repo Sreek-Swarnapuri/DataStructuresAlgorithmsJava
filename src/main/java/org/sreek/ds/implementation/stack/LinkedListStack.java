@@ -1,4 +1,4 @@
-package org.sreek.ds.implementation;
+package org.sreek.ds.implementation.stack;
 
 import java.util.EmptyStackException;
 

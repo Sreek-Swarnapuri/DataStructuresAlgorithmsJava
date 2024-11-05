@@ -1,6 +1,6 @@
-package org.sreek.ds.usage;
+package org.sreek.ds.usage.impl.list;
 
-import org.sreek.ds.implementation.DoublyLinkedList;
+import org.sreek.ds.implementation.list.DoublyLinkedList;
 
 public class DoublyLinkedListImplUsage {
 
@@ -20,7 +20,7 @@ public class DoublyLinkedListImplUsage {
         integerLinkedList.print();
 
         // Insert in the middle
-        integerLinkedList.insert(2,3);
+        integerLinkedList.insert(2, 3);
         integerLinkedList.print();
 
         // delete at head
@@ -40,14 +40,14 @@ public class DoublyLinkedListImplUsage {
         integerLinkedList.clear();
         integerLinkedList.print();
 
-        integerLinkedList.insert(0,2);
-        integerLinkedList.insert(1,6);
-        integerLinkedList.insert(1,3);
-        integerLinkedList.insert(3,7);
-        integerLinkedList.insert(2,4);
-        integerLinkedList.insert(3,5);
-        integerLinkedList.insert(0,1);
-        integerLinkedList.insert(0,-21);
+        integerLinkedList.insert(0, 2);
+        integerLinkedList.insert(1, 6);
+        integerLinkedList.insert(1, 3);
+        integerLinkedList.insert(3, 7);
+        integerLinkedList.insert(2, 4);
+        integerLinkedList.insert(3, 5);
+        integerLinkedList.insert(0, 1);
+        integerLinkedList.insert(0, -21);
         integerLinkedList.print();
 
         // get
@@ -68,7 +68,7 @@ public class DoublyLinkedListImplUsage {
         numbersList.print();
         numbersList.insertAtEnd(3);
         numbersList.print();
-        numbersList.insert(1,2);
+        numbersList.insert(1, 2);
         numbersList.print();
 
 

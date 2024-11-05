@@ -1,4 +1,4 @@
-package org.sreek.ds.usage;
+package org.sreek.ds.usage.builtin;
 
 import java.util.LinkedList;
 
@@ -19,7 +19,7 @@ public class InbuiltLinkedListUsage {
         // By default remove() accepts index, inorder to remove an element with a certain data, we should use WrapperClass.valueOf() methood.
         charLinkedList.remove(Character.valueOf('c'));
         System.out.println(charLinkedList);
-        charLinkedList.add(2,'c');
+        charLinkedList.add(2, 'c');
         System.out.println(charLinkedList);
         charLinkedList.remove(4);
         System.out.println(charLinkedList);

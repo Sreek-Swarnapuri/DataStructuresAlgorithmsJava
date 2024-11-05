@@ -1,6 +1,6 @@
-package org.sreek.ds.usage;
+package org.sreek.ds.usage.impl.stack;
 
-import org.sreek.ds.implementation.ArrayStack;
+import org.sreek.ds.implementation.stack.ArrayStack;
 
 public class ArrayStackImplUsage {
 

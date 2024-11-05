@@ -1,4 +1,4 @@
-package org.sreek.ds.usage;
+package org.sreek.ds.usage.builtin;
 
 public class ArrayUsage {
 
@@ -37,7 +37,7 @@ public class ArrayUsage {
         System.out.println("Printing array of type: " + arr.getClass().getComponentType().getName());
         for (int i = 0; i < arr.length; i++) {
             System.out.print(i + ": " + arr[i]);
-            if(i < arr.length - 1)
+            if (i < arr.length - 1)
                 System.out.print(" , ");
         }
         System.out.println();

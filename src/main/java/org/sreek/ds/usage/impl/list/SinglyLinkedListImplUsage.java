@@ -1,8 +1,6 @@
-package org.sreek.ds.usage;
+package org.sreek.ds.usage.impl.list;
 
-import org.sreek.ds.implementation.SinglyLinkedList;
-
-import java.util.LinkedList;
+import org.sreek.ds.implementation.list.SinglyLinkedList;
 
 public class SinglyLinkedListImplUsage {
 
@@ -47,7 +45,7 @@ public class SinglyLinkedListImplUsage {
         System.out.println("deleting value: " + numericalLinkedList.delete(0));
         numericalLinkedList.printLinkedList();
 
-        System.out.println("deleting value: " + numericalLinkedList.delete(numericalLinkedList.size()-1));
+        System.out.println("deleting value: " + numericalLinkedList.delete(numericalLinkedList.size() - 1));
         numericalLinkedList.printLinkedList();
 
         numericalLinkedList.insertAtHead(3);
