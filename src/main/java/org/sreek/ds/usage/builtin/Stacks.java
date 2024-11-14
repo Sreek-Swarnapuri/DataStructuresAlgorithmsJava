@@ -69,20 +69,21 @@ public class Stacks {
     public static void stackVectorUsage() {
         Stack<Integer> iStack = new Stack<>();
 
-        iStack.push(1);
-        iStack.push(2);
-        System.out.println("Peeking the stack: " + iStack.peek());
-        System.out.println("Printing stack: " + iStack);
-        iStack.push(3);
-        iStack.push(4);
-        System.out.println("Peeking the stack: " + iStack.peek());
-        System.out.println("Printing stack: " + iStack);
+        System.out.println("Pushing 10000000 elements into stack");
+        for (int i = 0; i < 10000000; i++) {
+            iStack.push(i);
+        }
 
-        iStack.push(3);
-        iStack.push(43);
-        System.out.println("Popping an element from the stack: " + iStack.pop());
-        System.out.println("Peeking the stack: " + iStack.peek());
-        System.out.println("Printing stack: " + iStack);
+        System.out.println("Popping 4872000 elements:");
+        HashSet<Integer> peekingNumbers = getIntegers();
+
+        for (int i = 0; i < 4872000; i++) {
+            iStack.pop();
+            if(peekingNumbers.contains(i))
+                System.out.println("Peeking top of the stack: " + i);
+        }
+        System.out.println("Size of the stack: " + iStack.size());
+
 
     }
 
@@ -96,20 +97,20 @@ public class Stacks {
     public static void arrayDequeAsStack() {
         Deque<Integer> iStack = new ArrayDeque<>();
 
-        iStack.push(1);
-        iStack.push(2);
-        System.out.println("Peeking the stack: " + iStack.peek());
-        System.out.println("Printing stack: " + iStack);
-        iStack.push(3);
-        iStack.push(4);
-        System.out.println("Peeking the stack: " + iStack.peek());
-        System.out.println("Printing stack: " + iStack);
+        System.out.println("Pushing 10000000 elements into stack");
+        for (int i = 0; i < 10000000; i++) {
+            iStack.push(i);
+        }
 
-        iStack.push(3);
-        iStack.push(43);
-        System.out.println("Popping an element from the stack: " + iStack.pop());
-        System.out.println("Peeking the stack: " + iStack.peek());
-        System.out.println("Printing stack: " + iStack);
+        System.out.println("Popping 4872000 elements:");
+        HashSet<Integer> peekingNumbers = getIntegers();
+
+        for (int i = 0; i < 4872000; i++) {
+            iStack.pop();
+            if(peekingNumbers.contains(i))
+                System.out.println("Peeking top of the stack: " + i);
+        }
+        System.out.println("Size of the stack: " + iStack.size());
     }
 
     /**
@@ -123,22 +124,53 @@ public class Stacks {
     public static void linkedListAsStack() {
         LinkedList<Integer> iStack = new LinkedList<>();
 
-        iStack.push(1);
-        iStack.push(2);
-        System.out.println("Peeking the stack: " + iStack.peek());
-        System.out.println("Printing stack: " + iStack);
-        iStack.push(3);
-        iStack.push(4);
-        System.out.println("Peeking the stack: " + iStack.peek());
-        System.out.println("Printing stack: " + iStack);
+        System.out.println("Pushing 10000000 elements into stack");
+        for (int i = 0; i < 10000000; i++) {
+            iStack.push(i);
+        }
 
-        iStack.push(3);
-        iStack.push(43);
-        System.out.println("Popping an element from the stack: " + iStack.pop());
-        System.out.println("Peeking the stack: " + iStack.peek());
-        System.out.println("Printing stack: " + iStack);
+        System.out.println("Popping 4872000 elements:");
+        HashSet<Integer> peekingNumbers = getIntegers();
+
+        for (int i = 0; i < 4872000; i++) {
+            iStack.pop();
+            if(peekingNumbers.contains(i))
+                System.out.println("Peeking top of the stack: " + i);
+        }
+        System.out.println("Size of the stack: " + iStack.size());
     }
 
-
+    private static HashSet<Integer> getIntegers() {
+        HashSet<Integer> nums = new HashSet<>();
+        nums.add(1);
+        nums.add(3);
+        nums.add(5);
+        nums.add(333);
+        nums.add(765);
+        nums.add(1243);
+        nums.add(43);
+        nums.add(10);
+        nums.add(30);
+        nums.add(50);
+        nums.add(3336);
+        nums.add(76566);
+        nums.add(12463);
+        nums.add(463);
+        nums.add(189657);
+        nums.add(4563);
+        nums.add(5456);
+        nums.add(3456433);
+        nums.add(745665);
+        nums.add(1245643);
+        nums.add(43456);
+        nums.add(45610);
+        nums.add(34560);
+        nums.add(56450);
+        nums.add(3456336);
+        nums.add(76456566);
+        nums.add(14562463);
+        nums.add(446563);
+        return nums;
+    }
 
 }
