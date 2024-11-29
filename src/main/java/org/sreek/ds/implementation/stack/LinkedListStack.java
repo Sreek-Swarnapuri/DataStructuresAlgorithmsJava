@@ -4,7 +4,7 @@ import java.util.EmptyStackException;
 
 public class LinkedListStack<T> {
 
-    private Node top; // tail is top of stack
+    private Node<T> top; // tail is top of stack
     private int size;
 
     public LinkedListStack() {
@@ -49,7 +49,7 @@ public class LinkedListStack<T> {
         if (data == null)
             throw new IllegalArgumentException("data should not be null");
 
-        this.top = new Node(this.top, data);
+        this.top = new Node<>(this.top, data);
         this.size++;
 
     }
@@ -65,7 +65,7 @@ public class LinkedListStack<T> {
         if (isEmpty())
             throw new EmptyStackException();
 
-        Node deletedNode = this.top;
+        Node<T> deletedNode = this.top;
 
         this.top = this.top.prev;
         this.size--;
@@ -101,7 +101,7 @@ public class LinkedListStack<T> {
         sb.append("Stack is as follows: \n");
         sb.append("Stack size : ").append(this.size).append("\n");
 
-        Node currNode = this.top;
+        Node<T> currNode = this.top;
 
         for (int i = this.size - 1; i > -1; i--) {
             sb.append(i).append(" : ").append(currNode.data);
@@ -115,11 +115,11 @@ public class LinkedListStack<T> {
         return sb.toString();
     }
 
-    private class Node {
-        Node prev;
+    private static class Node<T> {
+        Node<T> prev;
         T data;
 
-        Node(Node prev, T data) {
+        Node(Node<T> prev, T data) {
             this.prev = prev;
             this.data = data;
         }
