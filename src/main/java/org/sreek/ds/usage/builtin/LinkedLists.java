@@ -16,7 +16,7 @@ public class LinkedLists {
         charLinkedList.add('a');
         charLinkedList.add('a');
         System.out.println(charLinkedList);
-        // By default remove() accepts index, inorder to remove an element with a certain data, we should use WrapperClass.valueOf() methood.
+        // By default remove() accepts index, inorder to remove an element with a certain data, we should use WrapperClass.valueOf() method.
         charLinkedList.remove(Character.valueOf('c'));
         System.out.println(charLinkedList);
         charLinkedList.add(2, 'c');
