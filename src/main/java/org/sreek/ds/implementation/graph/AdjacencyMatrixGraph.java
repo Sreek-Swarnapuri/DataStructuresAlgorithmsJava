@@ -8,14 +8,13 @@ import java.util.List;
 
 public class AdjacencyMatrixGraph implements Graph {
 
+    private static final Logger logger = LogManager.getLogger(AdjacencyMatrixGraph.class);
     List<Integer> vertices;
     int[][] adjacentMatrix;
 
-    private static final Logger logger = LogManager.getLogger(AdjacencyMatrixGraph.class);
-
     public AdjacencyMatrixGraph(int noOfVertices) {
         this.vertices = new ArrayList<>(noOfVertices);
-        for (int i = 0; i < noOfVertices; i++){
+        for (int i = 0; i < noOfVertices; i++) {
             this.vertices.add(i);
         }
         this.adjacentMatrix = new int[noOfVertices][noOfVertices];
@@ -23,20 +22,19 @@ public class AdjacencyMatrixGraph implements Graph {
     }
 
     /**
-     * Adds an edge between the given source and destination vertices. Returns false
-     * if any of the provided vertices do not exist
+     * Adds an edge between the given source and destination vertices.
      * <br>
-     * Time Complexity: O(n) - need to traverse through the vertices and check if they exist or not.
+     * Time Complexity: O(V) - V - no of vertices, need to traverse through the vertices list and check if they
+     * exist or not.
      *
-     * @param source - starting vertex of the edge
+     * @param source      - starting vertex of the edge
      * @param destination - ending vertex of the edge
      * @return {@code true} if edge is added into the matrix. {@code false} if provided
      * vertices do not exist in the matrix.
-
      */
     @Override
     public boolean addEdge(int source, int destination) {
-        if(!this.vertices.contains(source) || !this.vertices.contains(destination)) {
+        if (!this.vertices.contains(source) || !this.vertices.contains(destination)) {
             logger.warn("Source or Destination provided is invalid while adding an edge!");
             return false;
         }
@@ -45,9 +43,20 @@ public class AdjacencyMatrixGraph implements Graph {
         return true;
     }
 
+    /**
+     * Removes an edge between the given source and destination vertices,
+     * <br>
+     * Time Complexity: O(V) - V - no of vertices, need to traverse through the vertices list and check if they
+     * exist or not.
+     *
+     * @param source      - starting vertex of the edge
+     * @param destination - ending vertex of the edge
+     * @return {@code true} if edge is added into the matrix. {@code false} if provided
+     *      * vertices do not exist in the matrix.
+     */
     @Override
     public boolean removeEdge(int source, int destination) {
-        if(!this.vertices.contains(source) || !this.vertices.contains(destination)) {
+        if (!this.vertices.contains(source) || !this.vertices.contains(destination)) {
             logger.warn("Source or Destination provided is invalid while removing an edge!");
             return false;
         }
@@ -56,26 +65,80 @@ public class AdjacencyMatrixGraph implements Graph {
         return true;
     }
 
+    /**
+     * Adds a new vertex provided to the existing adjacency matrix.
+     * <br>
+     * Time Complexity: O(n ^ 2) - Need to loop through the 2d matrix to create a new Matrix with the additional vertex
+     *
+     * @param vertex - vertex to be added.
+     * @return {@code true} if the addition is successful, {@code false} if the vertex already exists.
+     */
     @Override
     public boolean addVertex(int vertex) {
-        if(this.vertices.contains(vertex)){
+        if (this.vertices.contains(vertex)) {
             logger.warn("Provided vertex already exists!");
             return false;
         }
         this.vertices.add(vertex);
         int[][] newMatrix = new int[this.vertices.size()][this.vertices.size()];
         for (int i = 0; i < this.adjacentMatrix.length; i++) {
-            for (int j = 0; j <this.adjacentMatrix[0].length; j++) {
-                newMatrix[i][j] = this.adjacentMatrix[i][j];
-            }
+            System.arraycopy(this.adjacentMatrix[i], 0, newMatrix[i], 0, this.adjacentMatrix[0].length);
         }
         this.adjacentMatrix = newMatrix;
         return true;
     }
 
+
+    /**
+     * Removes a vertex and its associated edges from the graph.
+     * Shift rows from the vertex provided then shifts columns from the vertex provided.
+     * Then replaces the current matrix with the new matrix.
+     * <br>
+     * Time Complexity: O(n ^ 2) - Need to loop through the 2d matrix thrice to perform necessary actions.
+     *
+     * @param vertex - vertex to be removed.
+     * @return {@code true} if the removal is successful, {@code false} otherwise.
+     */
+    /* An Example below
+        0 1 2                      0 1 2                         0 1
+        - - -                      - - -                         - -
+    0 | 1 0 1                  0 | 1 0 1                     0 | 1 1
+    1 | 0 0 0 => shift rows => 1 | 1 0 1 => shift columns => 1 | 1 1
+    2 | 1 0 1
+
+     */
     @Override
     public boolean removeVertex(int vertex) {
-        return false;
+        if (!this.vertices.contains(vertex)) {
+            logger.warn("Provided vertex does not exist");
+            return false;
+        }
+        int indexOfVertex = this.vertices.indexOf(vertex);
+
+        // Shift rows
+        for (int i = indexOfVertex; i < this.adjacentMatrix.length; i++) {
+            for (int j = 0; j < this.adjacentMatrix[i].length; j++) {
+                this.adjacentMatrix[i][j] = this.adjacentMatrix[i+1][j];
+            }
+        }
+
+        // Shift columns
+        for (int i = 0; i < this.adjacentMatrix.length; i++) {
+            for (int j = indexOfVertex; j < this.adjacentMatrix[i].length; j++) {
+                this.adjacentMatrix[i][j] = this.adjacentMatrix[i][j+1];
+            }
+        }
+
+        int[][] newMatrix = new int[this.vertices.size()-1][this.vertices.size()-1];
+
+        for (int i = 0; i < newMatrix.length; i++) {
+            System.arraycopy(this.adjacentMatrix[i], 0, newMatrix[i], 0, newMatrix[i].length);
+        }
+
+        this.adjacentMatrix = newMatrix;
+
+        this.vertices.remove(vertex);
+        return true;
     }
 
     @Override
