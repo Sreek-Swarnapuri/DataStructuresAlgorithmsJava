@@ -1,7 +1,8 @@
-package org.sreek.ds.implementation.graph;
+package org.sreek.ds.implementation.graph.matrix;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.sreek.ds.implementation.graph.Graph;
 
 import java.util.ArrayList;
 import java.util.List;
