@@ -117,11 +117,27 @@ public class BasicAdjacencyMatrixGraph implements Graph {
         return isDirected;
     }
 
+
+    /**
+     * Computes the degree of the given vertex in an undirected graph.
+     * The degree of a vertex is the number of edges connected to it.
+     *
+     * @param vertex the vertex whose degree is to be determined
+     * @return the degree of the vertex if it is valid and the graph is undirected,
+     *         {@code -1} if the vertex is invalid or if the graph is directed
+     */
     @Override
     public int getDegreeOfVertex(int vertex) {
-        
+        if(validateVertex(vertex) || isDirected)
+            return -1;
 
-        return 0;
+        int degree = 0;
+        for (int i = 0; i < adjacencyMatrix[vertex].length; i++) {
+            if(adjacencyMatrix[vertex][i])
+                degree++;
+        }
+
+        return degree;
     }
 
     @Override
@@ -154,6 +170,14 @@ public class BasicAdjacencyMatrixGraph implements Graph {
             return true;
         }
         logger.error("Provided source or destination vertex is invalid");
+        return false;
+    }
+
+    private boolean validateVertex(int vertex) {
+        if(vertex > 0 && vertex < this.adjacencyMatrix.length)
+            return true;
+
+        logger.error("Provided vertex is invalid");
         return false;
     }
 }
