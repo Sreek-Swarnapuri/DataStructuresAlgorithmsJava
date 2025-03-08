@@ -128,7 +128,7 @@ public class BasicAdjacencyMatrixGraph implements Graph {
      */
     @Override
     public int getDegreeOfVertex(int vertex) {
-        if(validateVertex(vertex) || isDirected)
+        if( isInvalidVertex(vertex) || isDirected)
             return -1;
 
         int degree = 0;
@@ -140,24 +140,62 @@ public class BasicAdjacencyMatrixGraph implements Graph {
         return degree;
     }
 
+    /**
+     * Returns the in-degree of the specified vertex in the graph.
+     * <p>
+     * The in-degree of a vertex is the number of edges directed towards it.
+     * If the graph is undirected, the in-degree is the same as the out-degree.
+     * If the vertex is invalid, the method returns -1.
+     * </p>
+     *
+     * @param vertex the vertex whose in-degree is to be calculated.
+     * @return the in-degree of the specified vertex, or -1 if the vertex is invalid.
+     */
     @Override
     public int getInDegreeOfVertex(int vertex) {
-        return 0;
+        if(isInvalidVertex(vertex))
+            return -1;
+
+        if(!isDirected)
+            return getOutDegreeOfVertex(vertex);
+
+        int degree = 0;
+
+        for (boolean[] row : adjacencyMatrix) {
+            if (row[vertex])
+                degree++;
+        }
+
+        return degree;
     }
 
+    /**
+     * Returns the out-degree of the specified vertex in the graph.
+     * <p>
+     * The out-degree of a vertex is the number of edges directed outward from it.
+     * If the vertex is invalid, the method returns -1.
+     * </p>
+     *
+     * @param vertex the vertex whose out-degree is to be calculated.
+     * @return the out-degree of the specified vertex, or -1 if the vertex is invalid.
+     */
     @Override
     public int getOutDegreeOfVertex(int vertex) {
-        return 0;
+        if(isInvalidVertex(vertex))
+            return -1;
+
+        int degree = 0;
+        for(boolean outEdge: adjacencyMatrix[vertex]) {
+            if(outEdge)
+                degree++;
+        }
+
+        return degree;
     }
 
     @Override
     public int[] findNeighbours(int vertex) {
         return new int[0];
-    }
-
-    @Override
-    public void checkIfEdgeExists(int source, int destination) {
-
     }
 
     @Override
@@ -173,11 +211,11 @@ public class BasicAdjacencyMatrixGraph implements Graph {
         return false;
     }
 
-    private boolean validateVertex(int vertex) {
+    private boolean isInvalidVertex(int vertex) {
         if(vertex > 0 && vertex < this.adjacencyMatrix.length)
-            return true;
+            return false;
 
         logger.error("Provided vertex is invalid");
-        return false;
+        return true;
     }
 }

@@ -17,8 +17,6 @@ public interface Graph {
     
     public int[] findNeighbours(int vertex);
 
-    public void checkIfEdgeExists(int source, int destination);
-
     public void displayGraph();
     
 }

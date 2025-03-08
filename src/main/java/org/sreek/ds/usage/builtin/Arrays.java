@@ -1,6 +1,11 @@
 package org.sreek.ds.usage.builtin;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class Arrays {
+
+    private static final Logger logger = LogManager.getLogger(Arrays.class);
 
     public static void main(String[] args) {
         int[] numbers = new int[5];
@@ -27,9 +32,32 @@ public class Arrays {
         try {
             numbers[5] = 3;
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Cannot access the index provided as it is out of provided size: " + e.getMessage());
-            e.printStackTrace();
+            logger.error("Cannot access the index provided as it is out of provided size - {}", e.getMessage());
         }
+
+        System.out.println("====================================== 2-Dimensional Array ======================================");
+
+        int[][] matrix = {
+                {1, 2, 3},
+                {4, 5, 6},
+                {7, 8, 9}
+        };
+
+        System.out.println("-----Printing each row-----");
+        for(int[] row: matrix) {
+            System.out.println(java.util.Arrays.toString(row));
+        }
+
+        System.out.println("-----Printing each column as an array-----");
+        for (int i = 0; i < matrix[0].length; i++) {
+            int[] columns = new int[matrix.length];
+            for (int j = 0; j < matrix.length; j++) {
+                columns[j] = matrix[j][i];
+            }
+            System.out.println(java.util.Arrays.toString(columns));
+        }
+
+
 
     }
 

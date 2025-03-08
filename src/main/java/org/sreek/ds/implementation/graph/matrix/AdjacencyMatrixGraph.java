@@ -167,11 +167,6 @@ public class AdjacencyMatrixGraph implements Graph {
         return new int[0];
     }
 
-    @Override
-    public void checkIfEdgeExists(int source, int destination) {
-
-    }
-
     /**
      * IN PROGRESS
      */
