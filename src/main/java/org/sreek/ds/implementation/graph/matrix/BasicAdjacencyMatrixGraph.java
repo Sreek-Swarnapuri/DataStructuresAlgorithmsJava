@@ -4,6 +4,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.sreek.ds.implementation.graph.Graph;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Graph implementation using Adjacency Matrix which is static, unweighted and does not re-size
  * automatically. Fixed size Adjacency Matrix implementation which does not add or
@@ -194,8 +197,43 @@ public class BasicAdjacencyMatrixGraph implements Graph {
     }
 
     @Override
-    public int[] findNeighbours(int vertex) {
-        return new int[0];
+    public List<Integer> findNeighbours(int vertex) {
+
+        List<Integer> neighbours = new ArrayList<>();
+
+        if(isDirected) {
+            neighbours.addAll(findInNeighbours(vertex));
+            neighbours.addAll(findOutNeighbours(vertex));
+        } else {
+            for(int i = 0; i < this.adjacencyMatrix.length; i++) {
+                if (this.adjacencyMatrix[vertex][i])
+                    neighbours.add(i);
+            }
+        }
+
+        return neighbours;
+    }
+
+    public List<Integer> findInNeighbours(int vertex) {
+        List<Integer> neighbours = new ArrayList<>();
+
+        for(int i = 0; i < this.adjacencyMatrix[vertex].length; i++) {
+                if (this.adjacencyMatrix[i][vertex])
+                    neighbours.add(i);
+        }
+
+        return neighbours;
+    }
+
+    public List<Integer> findOutNeighbours(int vertex) {
+        List<Integer> neighbours = new ArrayList<>();
+
+        for(int i = 0; i < this.adjacencyMatrix.length; i++) {
+            if (this.adjacencyMatrix[vertex][i])
+                neighbours.add(i);
+        }
+
+        return neighbours;
     }
 
     @Override

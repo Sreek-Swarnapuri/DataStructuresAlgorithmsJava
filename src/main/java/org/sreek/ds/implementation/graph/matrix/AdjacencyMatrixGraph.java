@@ -163,8 +163,8 @@ public class AdjacencyMatrixGraph implements Graph {
     }
 
     @Override
-    public int[] findNeighbours(int vertex) {
-        return new int[0];
+    public List<Integer> findNeighbours(int vertex) {
+        return new ArrayList<>();
     }
 
     /**

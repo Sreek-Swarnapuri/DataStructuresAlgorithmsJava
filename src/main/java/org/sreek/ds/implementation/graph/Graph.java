@@ -1,5 +1,7 @@
 package org.sreek.ds.implementation.graph;
 
+import java.util.List;
+
 public interface Graph {
     
     public boolean addEdge(int source, int destination);
@@ -15,7 +17,7 @@ public interface Graph {
     public int getInDegreeOfVertex(int vertex);
     public int getOutDegreeOfVertex(int vertex);
     
-    public int[] findNeighbours(int vertex);
+    public List<Integer> findNeighbours(int vertex);
 
     public void displayGraph();
     
