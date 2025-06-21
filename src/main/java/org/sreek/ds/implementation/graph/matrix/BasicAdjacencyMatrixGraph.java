@@ -18,6 +18,7 @@ import java.util.List;
 public class BasicAdjacencyMatrixGraph implements Graph {
 
     private static final Logger logger = LogManager.getLogger(BasicAdjacencyMatrixGraph.class);
+
     boolean[][] adjacencyMatrix;
     boolean isDirected;
 
@@ -52,7 +53,7 @@ public class BasicAdjacencyMatrixGraph implements Graph {
      */
     @Override
     public boolean addEdge(int source, int destination) {
-        if (validateSourceAndDestination(source, destination))
+        if (!validateSourceAndDestination(source, destination))
             return false;
 
         if (isDirected) {
@@ -75,7 +76,7 @@ public class BasicAdjacencyMatrixGraph implements Graph {
      */
     @Override
     public boolean removeEdge(int source, int destination) {
-        if (validateSourceAndDestination(source, destination))
+        if (!validateSourceAndDestination(source, destination))
             return false;
 
         if (isDirected) {
@@ -127,16 +128,16 @@ public class BasicAdjacencyMatrixGraph implements Graph {
      *
      * @param vertex the vertex whose degree is to be determined
      * @return the degree of the vertex if it is valid and the graph is undirected,
-     *         {@code -1} if the vertex is invalid or if the graph is directed
+     * {@code -1} if the vertex is invalid or if the graph is directed
      */
     @Override
     public int getDegreeOfVertex(int vertex) {
-        if( isInvalidVertex(vertex) || isDirected)
+        if (isInvalidVertex(vertex) || isDirected)
             return -1;
 
         int degree = 0;
         for (int i = 0; i < adjacencyMatrix[vertex].length; i++) {
-            if(adjacencyMatrix[vertex][i])
+            if (adjacencyMatrix[vertex][i])
                 degree++;
         }
 
@@ -156,10 +157,10 @@ public class BasicAdjacencyMatrixGraph implements Graph {
      */
     @Override
     public int getInDegreeOfVertex(int vertex) {
-        if(isInvalidVertex(vertex))
+        if (isInvalidVertex(vertex))
             return -1;
 
-        if(!isDirected)
+        if (!isDirected)
             return getOutDegreeOfVertex(vertex);
 
         int degree = 0;
@@ -184,28 +185,40 @@ public class BasicAdjacencyMatrixGraph implements Graph {
      */
     @Override
     public int getOutDegreeOfVertex(int vertex) {
-        if(isInvalidVertex(vertex))
+        if (isInvalidVertex(vertex))
             return -1;
 
         int degree = 0;
-        for(boolean outEdge: adjacencyMatrix[vertex]) {
-            if(outEdge)
+        for (boolean outEdge : adjacencyMatrix[vertex]) {
+            if (outEdge)
                 degree++;
         }
 
         return degree;
     }
 
+    /**
+     * Finds the neighbours (both in-neighbours and out-neighbours for directed graphs,
+     * and adjacent vertices for undirected graphs) of the given vertex.
+     * <br>
+     * Time Complexity:
+     * - For a directed graph: O(V), where V is the number of vertices (due to separate checks for in-neighbours and out-neighbours).
+     * - For an undirected graph: O(V), as we iterate through the row of the adjacency matrix.
+     *
+     * @param vertex The vertex whose neighbours are to be found.
+     * @return A list of integers representing the neighbours of the given vertex.
+     * @throws IndexOutOfBoundsException If the vertex index is out of bounds.
+     */
     @Override
     public List<Integer> findNeighbours(int vertex) {
 
         List<Integer> neighbours = new ArrayList<>();
 
-        if(isDirected) {
+        if (isDirected) {
             neighbours.addAll(findInNeighbours(vertex));
             neighbours.addAll(findOutNeighbours(vertex));
         } else {
-            for(int i = 0; i < this.adjacencyMatrix.length; i++) {
+            for (int i = 0; i < this.adjacencyMatrix.length; i++) {
                 if (this.adjacencyMatrix[vertex][i])
                     neighbours.add(i);
             }
@@ -214,21 +227,39 @@ public class BasicAdjacencyMatrixGraph implements Graph {
         return neighbours;
     }
 
+    /**
+     * Finds all incoming neighbours (predecessors) of a given vertex in a directed graph.
+     * <br>
+     * Time Complexity: O(V), where V is the number of vertices, since we iterate through the adjacency matrix column.
+     *
+     * @param vertex The vertex whose in-neighbours are to be found.
+     * @return A list of integers representing the vertices that have edges pointing to the given vertex.
+     * @throws IndexOutOfBoundsException If the vertex index is out of bounds.
+     */
     public List<Integer> findInNeighbours(int vertex) {
         List<Integer> neighbours = new ArrayList<>();
 
-        for(int i = 0; i < this.adjacencyMatrix[vertex].length; i++) {
-                if (this.adjacencyMatrix[i][vertex])
-                    neighbours.add(i);
+        for (int i = 0; i < this.adjacencyMatrix[vertex].length; i++) {
+            if (this.adjacencyMatrix[i][vertex])
+                neighbours.add(i);
         }
 
         return neighbours;
     }
 
+    /**
+     * Finds all outgoing neighbours (successors) of a given vertex in a directed graph.
+     * <br>
+     * Time Complexity: O(V), where V is the number of vertices, since we iterate through the adjacency matrix row.
+     *
+     * @param vertex The vertex whose out-neighbours are to be found.
+     * @return A list of integers representing the vertices that the given vertex points to.
+     * @throws IndexOutOfBoundsException If the vertex index is out of bounds.
+     */
     public List<Integer> findOutNeighbours(int vertex) {
         List<Integer> neighbours = new ArrayList<>();
 
-        for(int i = 0; i < this.adjacencyMatrix.length; i++) {
+        for (int i = 0; i < this.adjacencyMatrix.length; i++) {
             if (this.adjacencyMatrix[vertex][i])
                 neighbours.add(i);
         }
@@ -238,6 +269,22 @@ public class BasicAdjacencyMatrixGraph implements Graph {
 
     @Override
     public void displayGraph() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n  ");
+        for (int i = 0; i < adjacencyMatrix.length; i++) {
+            sb.append(" ").append(i).append(" ");
+        }
+        sb.append("\n ").append("  -".repeat(adjacencyMatrix.length)).append("\n");
+
+        for (int i = 0; i < adjacencyMatrix.length; i++) {
+            sb.append(i).append(">");
+            for (int j = 0; j < adjacencyMatrix[i].length; j++) {
+                sb.append(" ").append(adjacencyMatrix[i][j]?"1":"0").append(" ");
+            }
+            sb.append("\n");
+        }
+
+        logger.info(sb);
 
     }
 
@@ -250,7 +297,7 @@ public class BasicAdjacencyMatrixGraph implements Graph {
     }
 
     private boolean isInvalidVertex(int vertex) {
-        if(vertex > 0 && vertex < this.adjacencyMatrix.length)
+        if (vertex > 0 && vertex < this.adjacencyMatrix.length)
             return false;
 
         logger.error("Provided vertex is invalid");
