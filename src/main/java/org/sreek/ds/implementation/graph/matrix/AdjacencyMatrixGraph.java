@@ -7,9 +7,13 @@ import org.sreek.ds.implementation.graph.Graph;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Resizable AdjancencyMatrixGraph
+ */
 public class AdjacencyMatrixGraph implements Graph {
 
     private static final Logger logger = LogManager.getLogger(AdjacencyMatrixGraph.class);
+
     List<Integer> vertices;
     int[][] adjacentMatrix;
 
@@ -103,9 +107,9 @@ public class AdjacencyMatrixGraph implements Graph {
     /* An Example below
         0 1 2                      0 1 2                         0 1
         - - -                      - - -                         - -
-    0 | 1 0 1                  0 | 1 0 1                     0 | 1 1
+    0 | 1 0 1 =>            => 0 | 1 0 1 =>               => 0 | 1 1
     1 | 0 0 0 => shift rows => 1 | 1 0 1 => shift columns => 1 | 1 1
-    2 | 1 0 1
+    2 | 1 0 1 =>            =>           =>               =>
 
      */
     @Override
@@ -118,9 +122,7 @@ public class AdjacencyMatrixGraph implements Graph {
 
         // Shift rows
         for (int i = indexOfVertex; i < this.adjacentMatrix.length; i++) {
-            for (int j = 0; j < this.adjacentMatrix[i].length; j++) {
-                this.adjacentMatrix[i][j] = this.adjacentMatrix[i+1][j];
-            }
+            System.arraycopy(this.adjacentMatrix[i + 1], 0, this.adjacentMatrix[i], 0, this.adjacentMatrix[i].length);
         }
 
         // Shift columns
@@ -173,19 +175,20 @@ public class AdjacencyMatrixGraph implements Graph {
     @Override
     public void displayGraph() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < vertices.size(); i++) {
-            sb.append(vertices.get(i)).append(" ");
+        for (Integer vertex : vertices) {
+            sb.append(vertex).append(" ");
         }
-        for (int i = 0; i < vertices.size(); i++) {
-            sb.append("---");
-        }
+        sb.append("---".repeat(vertices.size())).append("\n");
 
         for (int i = 0; i < adjacentMatrix.length; i++) {
-            System.out.print(vertices.get(i) + " ");
+            sb.append(vertices.get(i)).append(" ");
             for (int j = 0; j < adjacentMatrix[i].length; j++) {
-
+               sb.append(adjacentMatrix[i][j]).append(" ");
             }
+            sb.append("\n");
         }
+
+        System.out.println(sb);
 
     }
 }
