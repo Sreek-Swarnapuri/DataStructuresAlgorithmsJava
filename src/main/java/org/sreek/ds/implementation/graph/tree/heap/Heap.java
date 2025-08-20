@@ -56,9 +56,22 @@ public class Heap<T extends Comparable<T>> {
         return root;
     }
 
-//    public void buildHeapFromArray(T[] elements) {
-//        for (T element: elements)
-//    }
+    public void buildHeapFromArray(T[] elements) {
+        // clear the heap
+        this.clearHeap();
+
+        // Add the new elements to the heap Array
+        for (T element: elements) {
+            if(this.size == this.capacity)
+                this.grow();
+            this.elements[this.size++] = element;
+        }
+
+        // loop through from bottom non-leaf node to root and perform heapifyDown
+        for (int i = (this.size / 2) - 1; i >= 0 ; i--) {
+            heapifyDown(i);
+        }
+    }
 
     public void printHeapArray() {
         StringBuilder sb = new StringBuilder(this.size * 2);
@@ -67,6 +80,11 @@ public class Heap<T extends Comparable<T>> {
         }
 
         logger.info("Heap Size: {}, Heap Array: {}", this.size, sb.toString());
+    }
+
+    public void clearHeap() {
+        Arrays.fill(this.elements, 0, size, null);
+        this.size = 0;
     }
 
     private void heapifyUp(int index) {

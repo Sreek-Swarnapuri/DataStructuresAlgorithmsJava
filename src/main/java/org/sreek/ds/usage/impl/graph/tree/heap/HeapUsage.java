@@ -25,6 +25,13 @@ public class HeapUsage {
 
         integerHeap.printHeapArray();
 
+        integerHeap = new Heap<>(Integer.class, false);
+
+
+        integerHeap.buildHeapFromArray(new Integer[]{1, 2, 4, 5, 3});
+        // Should be: 5 3 4 2 1
+        integerHeap.printHeapArray();
+
     }
 
 }
