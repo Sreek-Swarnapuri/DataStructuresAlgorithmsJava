@@ -16,7 +16,7 @@ public class HeapUsage {
         Heap<Integer> integerHeap = new Heap<>(Integer.class, true);
 
         for (int val: intArr) {
-            integerHeap.insert(val);
+            integerHeap.push(val);
         }
 
         integerHeap.printHeapArray();
@@ -34,4 +34,54 @@ public class HeapUsage {
 
     }
 
+    ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+
+        if(list1 == null)
+            return list2;
+        else if(list2 == null)
+            return list1;
+
+        ListNode newList = null;
+
+        while(list1 != null && list2 != null) {
+            if(list1.val < list2.val) {
+                if(newList == null) {
+                    newList = new ListNode(list1.val);
+                } else {
+                    newList.next = new ListNode(list1.val);
+                }
+                list1 = list1.next;
+            } else {
+                if(newList == null) {
+                    newList = new ListNode(list2.val);
+                } else {
+                    newList.next = new ListNode(list2.val);
+                }
+                list2 = list2.next;
+            }
+            newList = newList.next;
+        }
+
+        while(list1 != null) {
+            newList.next = new ListNode(list1.val);
+            list1 = list1.next;
+            newList = newList.next;
+        }
+        while(list2 != null) {
+            newList.next = new ListNode(list2.val);
+            list2 = list2.next;
+            newList = newList.next;
+        }
+        return newList;
+    }
+
 }
+
+
+class ListNode {
+      int val;
+      ListNode next;
+      ListNode() {}
+      ListNode(int val) { this.val = val; }
+      ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+  }

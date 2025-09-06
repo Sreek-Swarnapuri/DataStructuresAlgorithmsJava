@@ -5,6 +5,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
+import java.util.NoSuchElementException;
 
 public class Heap<T extends Comparable<T>> {
 
@@ -35,7 +36,7 @@ public class Heap<T extends Comparable<T>> {
         this.elements = (T[]) Array.newInstance(clazz, capacity);
     }
 
-    public void insert(T element) {
+    public void push(T element) {
         if(this.size == this.capacity)
             grow();
 
@@ -71,6 +72,46 @@ public class Heap<T extends Comparable<T>> {
         for (int i = (this.size / 2) - 1; i >= 0 ; i--) {
             heapifyDown(i);
         }
+    }
+
+    public boolean delete(T element) {
+
+        if(this.size == 0)
+            throw new NoSuchElementException("Heap is empty!");
+
+        int elementIndex = -1;
+
+        // Find the index of the element to be deleted
+        for (int i = 0; i < this.size; i++) {
+            if(this.elements[i].equals(element))
+                elementIndex = i;
+        }
+
+        // if the element is not found throw error
+        if(elementIndex == -1)
+            throw new NoSuchElementException("Cannot find element - " + element);
+
+        // if the element is found, swap it with last element from elements array and heapifyUp/heapifyDown
+        // at the index as it could violate the heap property
+        this.swap(elementIndex, this.size);
+
+        this.elements[this.size - 1] = null;
+        this.size--;
+
+        // if we deleted the last element, no heapify required
+        if (elementIndex >= this.size) {
+            return true;
+        }
+
+        // Check if the heap property is violated
+        int parentIndex = (elementIndex - 1 ) / 2;
+        if(parentIndex >= 0 && compare(elementIndex, parentIndex)) {
+            heapifyUp(elementIndex);
+        } else {
+            heapifyDown(elementIndex);
+        }
+
+        return true;
     }
 
     public void printHeapArray() {
