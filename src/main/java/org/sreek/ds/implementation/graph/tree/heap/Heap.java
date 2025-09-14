@@ -47,6 +47,9 @@ public class Heap<T extends Comparable<T>> {
 
     public T pop() {
 
+        if(this.size == 0)
+            throw new IllegalStateException("Heap is empty!");
+
         T root = this.elements[0];
         this.elements[0] = this.elements[this.size  - 1];
         this.elements[this.size - 1] = null;
@@ -74,34 +77,36 @@ public class Heap<T extends Comparable<T>> {
         }
     }
 
-    public boolean delete(T element) {
+    public void delete(T element) {
 
-        if(this.size == 0)
-            throw new NoSuchElementException("Heap is empty!");
+        if (this.size == 0)
+            throw new IllegalStateException("Heap is empty!");
 
         int elementIndex = -1;
 
         // Find the index of the element to be deleted
         for (int i = 0; i < this.size; i++) {
-            if(this.elements[i].equals(element))
+            if (this.elements[i].equals(element)) {
                 elementIndex = i;
+                break;
+            }
         }
 
         // if the element is not found throw error
-        if(elementIndex == -1)
+        if (elementIndex == -1)
             throw new NoSuchElementException("Cannot find element - " + element);
 
         // if the element is found, swap it with last element from elements array and heapifyUp/heapifyDown
         // at the index as it could violate the heap property
-        this.swap(elementIndex, this.size);
+        if (elementIndex != (this.size - 1))
+            this.swap(elementIndex, (this.size - 1));
 
         this.elements[this.size - 1] = null;
         this.size--;
 
         // if we deleted the last element, no heapify required
-        if (elementIndex >= this.size) {
-            return true;
-        }
+        if (elementIndex >= this.size )
+            return;
 
         // Check if the heap property is violated
         int parentIndex = (elementIndex - 1 ) / 2;
@@ -110,8 +115,6 @@ public class Heap<T extends Comparable<T>> {
         } else {
             heapifyDown(elementIndex);
         }
-
-        return true;
     }
 
     public void printHeapArray() {
