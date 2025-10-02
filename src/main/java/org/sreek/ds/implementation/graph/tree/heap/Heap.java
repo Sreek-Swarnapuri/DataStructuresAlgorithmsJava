@@ -79,6 +79,9 @@ public class Heap<T extends Comparable<T>> {
 
     public void delete(T element) {
 
+        if(element == null)
+            throw new IllegalArgumentException("Null element");
+
         if (this.size == 0)
             throw new IllegalStateException("Heap is empty!");
 
@@ -110,7 +113,8 @@ public class Heap<T extends Comparable<T>> {
 
         // Check if the heap property is violated
         int parentIndex = (elementIndex - 1 ) / 2;
-        if(parentIndex >= 0 && compare(elementIndex, parentIndex)) {
+        boolean moveUpCheck = (elementIndex > 0) && compare(elementIndex, parentIndex);
+        if(moveUpCheck) {
             heapifyUp(elementIndex);
         } else {
             heapifyDown(elementIndex);

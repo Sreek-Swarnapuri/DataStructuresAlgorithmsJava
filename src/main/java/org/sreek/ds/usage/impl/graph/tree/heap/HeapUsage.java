@@ -32,6 +32,11 @@ public class HeapUsage {
         // Should be: 5 3 4 2 1
         integerHeap.printHeapArray();
 
+        integerHeap.delete(1);
+
+        // should be: 5 3 4 2
+        integerHeap.printHeapArray();
+
     }
 
     ListNode mergeTwoLists(ListNode list1, ListNode list2) {
